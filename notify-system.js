@@ -240,7 +240,7 @@ function buildMessageFromContext(options) {
                     .filter(line => line.trim() && !line.startsWith('#'))
                     .slice(0, 5)
                     .join(' ')
-                    .slice(0, 500);
+                    .slice(0, 4000);
                 return text || '任务完成';
             }
         } catch {
