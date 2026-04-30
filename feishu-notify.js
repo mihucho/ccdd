@@ -171,14 +171,8 @@ async function notifyTaskCompletion(taskInfo = "Claude Code任务已完成", web
 
     const notifier = new FeishuNotifier(FEISHU_WEBHOOK_URL);
 
-    // 构造丰富的通知内容
-    const timestamp = new Date().toLocaleString('zh-CN');
-    // 项目名放在title最前面，适配手环显示
     const title = projectName ? `${projectName}: ${taskInfo}` : taskInfo;
-    const content = `⏰ 完成时间：${timestamp}
-🎯 手机震动 + 手环震动提醒
-
-💡 可以查看执行结果了！`;
+    const content = `${new Date().toLocaleString('zh-CN')}`;
 
     try {
         // 发送富文本消息
