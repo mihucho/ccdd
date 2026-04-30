@@ -235,13 +235,12 @@ function buildMessageFromContext(options) {
         try {
             const ctx = JSON.parse(stdin);
             if (ctx.last_assistant_message) {
-                // 取第一行或前150字符作为摘要
                 const text = ctx.last_assistant_message
                     .split('\n')
                     .filter(line => line.trim() && !line.startsWith('#'))
-                    .slice(0, 3)
+                    .slice(0, 5)
                     .join(' ')
-                    .slice(0, 150);
+                    .slice(0, 500);
                 return text || '任务完成';
             }
         } catch {
