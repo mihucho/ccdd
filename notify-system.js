@@ -207,10 +207,55 @@ function getCommandLineArgs() {
     return options;
 }
 
+/**
+ * 从 stdin 读取 Claude Stop hook 传入的上下文
+ * 包含 last_assistant_message 等信息
+ */
+function readStdinSync() {
+    const { readFileSync } = require('fs');
+    try {
+        return readFileSync(0, 'utf8').trim();
+    } catch {
+        return '';
+    }
+}
+
+/**
+ * 从 Claude 上下文生成通知消息
+ */
+function buildMessageFromContext(options) {
+    // 1. 命令行显式指定了消息，直接用
+    if (options.message || options.task) {
+        return options.message || options.task;
+    }
+
+    // 2. 尝试从 stdin 读取 Claude Stop hook 的 JSON 上下文
+    const stdin = readStdinSync();
+    if (stdin) {
+        try {
+            const ctx = JSON.parse(stdin);
+            if (ctx.last_assistant_message) {
+                // 取第一行或前150字符作为摘要
+                const text = ctx.last_assistant_message
+                    .split('\n')
+                    .filter(line => line.trim() && !line.startsWith('#'))
+                    .slice(0, 3)
+                    .join(' ')
+                    .slice(0, 150);
+                return text || '任务完成';
+            }
+        } catch {
+            // stdin 不是 JSON，忽略
+        }
+    }
+
+    return '任务完成';
+}
+
 // 如果直接运行此脚本
 if (require.main === module) {
     const options = getCommandLineArgs();
-    const taskInfo = options.message || options.task || "Claude Code任务已完成";
+    const taskInfo = buildMessageFromContext(options);
 
     const notifier = new NotificationSystem();
     notifier.sendAllNotifications(taskInfo);

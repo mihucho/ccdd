@@ -31,11 +31,13 @@ node notify-system.js --task "测试通知"
     "Stop": [{
       "hooks": [{
         "type": "command",
-        "command": "node /你的路径/ccdd/notify-system.js --message '任务完成'"
+        "command": "node /你的路径/ccdd/notify-system.js"
       }]
     }]
   }
 }
 ```
+
+不传 `--message` 时，会自动从 Claude 的上下文中提取最后一条消息作为通知内容。
 
 更多细节见 [SETUP.md](./SETUP.md)。
