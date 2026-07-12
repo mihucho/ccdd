@@ -61,6 +61,36 @@ class EnvConfig {
     }
 
     /**
+     * 获取钉钉配置
+     */
+    getDingtalkConfig() {
+        return {
+            webhook_url: process.env.DINGTALK_WEBHOOK_URL || '',
+            secret: process.env.DINGTALK_SECRET || '',
+            enabled: !!process.env.DINGTALK_WEBHOOK_URL
+        };
+    }
+
+    /**
+     * 获取钉钉企业机器人配置
+     */
+    getDingtalkRobotConfig() {
+        const appKey = process.env.DINGTALK_ROBOT_APP_KEY || '';
+        const appSecret = process.env.DINGTALK_ROBOT_APP_SECRET || '';
+        const userIds = (process.env.DINGTALK_ROBOT_USER_IDS || '').split(',').filter(id => id.trim());
+        const conversationId = process.env.DINGTALK_ROBOT_CONVERSATION_ID || '';
+
+        return {
+            appKey,
+            appSecret,
+            robotCode: process.env.DINGTALK_ROBOT_CODE || appKey,
+            userIds,
+            conversationId,
+            enabled: !!(appKey && appSecret && (userIds.length > 0 || conversationId))
+        };
+    }
+
+    /**
      * 获取声音通知配置
      */
     getSoundConfig() {
@@ -86,6 +116,8 @@ class EnvConfig {
         return {
             feishu: this.getFeishuConfig(),
             telegram: this.getTelegramConfig(),
+            dingtalk: this.getDingtalkConfig(),
+            dingtalkRobot: this.getDingtalkRobotConfig(),
             sound: this.getSoundConfig(),
             notification: this.getNotificationConfig()
         };

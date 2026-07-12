@@ -1,0 +1,7 @@
+{
+  "tool_name": "Bash",
+  "tool_input_preview": "{\"command\":\"node -e \\\"\\n// 测试模块加载\\nconst { DingtalkNotifier } = require('./dingtalk-notify');\\nconst { envConfig } = require('./env-config');\\nconst { NotificationManager } = require('./notification-m...",
+  "error": "Exit code 1\nnode:internal/modules/cjs/loader:1386\n  throw err;\n  ^\n\nError: Cannot find module 'dotenv'\nRequire stack:\n- /Users/mihuc/Documents/code/node/ccdd/dingtalk-notify.js\n- /Users/mihuc/Documents/code/node/ccdd/[eval]\n    at Function._resolveFilename (node:internal/modules/cjs/loader:1383:15)\n    at defaultResolveImpl (node:internal/modules/cjs/loader:1025:19)\n    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1030:22)\n    at Function._load (node:internal/modules/cjs/loader:11...",
+  "timestamp": "2026-07-12T05:53:10.270Z",
+  "retry_count": 1
+}

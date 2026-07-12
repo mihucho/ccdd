@@ -29,6 +29,8 @@ class NotificationSystem {
                 type: envVars.feishu.enabled ? 'feishu' : 'sound',
                 feishu: envVars.feishu,
                 telegram: envVars.telegram,
+                dingtalk: envVars.dingtalk,
+                dingtalkRobot: envVars.dingtalkRobot,
                 sound: envVars.sound
             }
         };

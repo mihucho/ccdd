@@ -1,0 +1,143 @@
+{
+  "version": "1.0.0",
+  "lastScanned": 1783835274086,
+  "projectRoot": "/Users/mihuc/Documents/code/node/ccdd",
+  "techStack": {
+    "languages": [
+      {
+        "name": "JavaScript/TypeScript",
+        "version": null,
+        "confidence": "high",
+        "markers": [
+          "package.json"
+        ]
+      }
+    ],
+    "frameworks": [],
+    "packageManager": "pnpm",
+    "runtime": null
+  },
+  "build": {
+    "buildCommand": null,
+    "testCommand": "pnpm test",
+    "lintCommand": null,
+    "devCommand": null,
+    "scripts": {
+      "test": "echo \"Error: no test specified\" && exit 1"
+    }
+  },
+  "conventions": {
+    "namingStyle": null,
+    "importStyle": null,
+    "testPattern": null,
+    "fileOrganization": null
+  },
+  "structure": {
+    "isMonorepo": false,
+    "workspaces": [],
+    "mainDirectories": [],
+    "gitBranches": {
+      "defaultBranch": "master",
+      "branchingStrategy": null
+    }
+  },
+  "customNotes": [],
+  "directoryMap": {
+    "test-project": {
+      "path": "test-project",
+      "purpose": null,
+      "fileCount": 1,
+      "lastAccessed": 1783835274060,
+      "keyFiles": [
+        "package.json"
+      ]
+    }
+  },
+  "hotPaths": [
+    {
+      "path": "notification-manager.js",
+      "accessCount": 15,
+      "lastAccessed": 1783836184550,
+      "type": "file"
+    },
+    {
+      "path": "env-config.js",
+      "accessCount": 7,
+      "lastAccessed": 1783836102644,
+      "type": "file"
+    },
+    {
+      "path": ".env.example",
+      "accessCount": 5,
+      "lastAccessed": 1783836218912,
+      "type": "file"
+    },
+    {
+      "path": "setup-wizard.js",
+      "accessCount": 4,
+      "lastAccessed": 1783835774923,
+      "type": "file"
+    },
+    {
+      "path": "notify-system.js",
+      "accessCount": 4,
+      "lastAccessed": 1783836196418,
+      "type": "file"
+    },
+    {
+      "path": "README.md",
+      "accessCount": 3,
+      "lastAccessed": 1783835665025,
+      "type": "file"
+    },
+    {
+      "path": "feishu-notify.js",
+      "accessCount": 2,
+      "lastAccessed": 1783835418053,
+      "type": "file"
+    },
+    {
+      "path": "package.json",
+      "accessCount": 1,
+      "lastAccessed": 1783835332697,
+      "type": "file"
+    },
+    {
+      "path": "SETUP.md",
+      "accessCount": 1,
+      "lastAccessed": 1783835334026,
+      "type": "file"
+    },
+    {
+      "path": "telegram-notify.js",
+      "accessCount": 1,
+      "lastAccessed": 1783835335800,
+      "type": "file"
+    },
+    {
+      "path": "notify-sound.js",
+      "accessCount": 1,
+      "lastAccessed": 1783835336292,
+      "type": "file"
+    },
+    {
+      "path": "test-project/package.json",
+      "accessCount": 1,
+      "lastAccessed": 1783835348634,
+      "type": "file"
+    },
+    {
+      "path": "dingtalk-notify.js",
+      "accessCount": 1,
+      "lastAccessed": 1783835460843,
+      "type": "file"
+    },
+    {
+      "path": "dingtalk-robot-notify.js",
+      "accessCount": 1,
+      "lastAccessed": 1783836062937,
+      "type": "file"
+    }
+  ],
+  "userDirectives": []
+}

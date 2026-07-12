@@ -5,6 +5,8 @@
 
 const { FeishuNotifier } = require('./feishu-notify');
 const { TelegramNotifier } = require('./telegram-notify');
+const { DingtalkNotifier } = require('./dingtalk-notify');
+const { DingtalkRobotNotifier } = require('./dingtalk-robot-notify');
 
 /**
  * 通知管理器类
@@ -42,6 +44,31 @@ class NotificationManager {
                 send: async (taskInfo) => {
                     const { notifyTaskCompletion } = require('./telegram-notify');
                     return await notifyTaskCompletion(taskInfo, this.projectName);
+                }
+            };
+        }
+
+        // 钉钉通知器（Webhook方式）
+        if (this.config.notification.dingtalk && this.config.notification.dingtalk.enabled) {
+            notifiers.dingtalk = {
+                enabled: true,
+                notifier: new DingtalkNotifier(this.config.notification.dingtalk.webhook_url, this.config.notification.dingtalk.secret),
+                send: async (taskInfo) => {
+                    const { notifyTaskCompletion } = require('./dingtalk-notify');
+                    return await notifyTaskCompletion(taskInfo, this.config.notification.dingtalk.webhook_url, this.projectName, this.config.notification.dingtalk.secret);
+                }
+            };
+        }
+
+        // 钉钉企业机器人通知器（API方式，支持双向交互）
+        if (this.config.notification.dingtalkRobot && this.config.notification.dingtalkRobot.enabled) {
+            const robotConfig = this.config.notification.dingtalkRobot;
+            notifiers.dingtalkRobot = {
+                enabled: true,
+                notifier: new DingtalkRobotNotifier(robotConfig),
+                send: async (taskInfo) => {
+                    const { notifyTaskCompletion } = require('./dingtalk-robot-notify');
+                    return await notifyTaskCompletion(taskInfo, this.projectName, robotConfig);
                 }
             };
         }
@@ -97,6 +124,8 @@ class NotificationManager {
         const typeNames = {
             feishu: '飞书通知',
             telegram: 'Telegram通知',
+            dingtalk: '钉钉通知',
+            dingtalkRobot: '钉钉机器人通知',
             sound: '声音提醒'
         };
         return typeNames[type] || type;
@@ -114,7 +143,7 @@ class NotificationManager {
             const typeName = this.getTypeName(type);
             const result = results[index];
             const status = result && result.value && result.value.success ? '✅ 成功' : '❌ 失败';
-            const icon = type === 'feishu' ? '📱' : type === 'telegram' ? '📲' : '🔊';
+            const icon = type === 'feishu' ? '📱' : type === 'telegram' ? '📲' : type === 'dingtalk' || type === 'dingtalkRobot' ? '🔔' : '🔊';
             console.log(`  ${icon} ${typeName}：${status}`);
         });
 
@@ -127,6 +156,12 @@ class NotificationManager {
         if (this.notifiers.telegram) {
             console.log('  📲 Telegram将收到推送通知');
         }
+        if (this.notifiers.dingtalk) {
+            console.log('  🔔 钉钉将收到推送通知');
+        }
+        if (this.notifiers.dingtalkRobot) {
+            console.log('  🔔 钉钉机器人将发送通知');
+        }
         console.log('');
     }
 
@@ -137,6 +172,8 @@ class NotificationManager {
         const icons = [];
         if (this.notifiers.feishu) icons.push('📱');
         if (this.notifiers.telegram) icons.push('📲');
+        if (this.notifiers.dingtalk) icons.push('🔔');
+        if (this.notifiers.dingtalkRobot) icons.push('🤖');
         return icons.join(' ');
     }
 }
